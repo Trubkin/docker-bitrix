@@ -1,6 +1,8 @@
 окружение для тестовой разработки
 
-для запуска окружения необходимо склонировать репозиторий https://github.com/Trubkin/docker-bitrix.git
+для запуска окружения необходимо склонировать репозиторий: 
+
+git clone https://github.com/Trubkin/docker-bitrix.git
 
 cd docker-bitrix/ 
 
