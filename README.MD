@@ -2,6 +2,8 @@
 
 для запуска окружения необходимо склонировать репозиторий https://github.com/Trubkin/docker-bitrix.git
 
+cd docker-bitrix/ 
+
 создать переменные окружения: 
 
 cp .env_template .env
