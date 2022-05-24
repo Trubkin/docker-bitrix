@@ -1,4 +1,4 @@
-FROM nginx:1.18
+FROM nginx:1.21
 
 COPY conf/nginx.conf /etc/nginx/
 COPY conf/default.conf /etc/nginx/conf.d/
@@ -8,4 +8,5 @@ RUN usermod -u 1000 www-data
 
 CMD ["nginx"]
 
-EXPOSE 80 443
+EXPOSE 80 
+#443

@@ -1,8 +1,12 @@
 version: '2'
-
+volumes:
+    site:
+    db:
+        driver: local
 services:
     php:
         build: ./${PHP_VERSION}
+        container_name: sotbit_php
         volumes_from:
             - source
         links:
@@ -13,6 +17,7 @@ services:
         restart: always
     web_server:
         build: ./${WEB_SERVER_TYPE}
+        container_name: sotbit_webserver
         depends_on:
             - source
         volumes_from:
@@ -28,6 +33,7 @@ services:
     db:
         build: ./${DB_SERVER_TYPE}
         platform: linux/amd64
+        container_name: sotbit_db
         volumes_from:
             - source
         ports:
@@ -43,6 +49,7 @@ services:
         restart: always
     memcached:
         image: memcached:1.6.12-alpine
+        container_name: sotbit_memcached
         volumes_from:
             - source
         ports:
@@ -52,6 +59,7 @@ services:
         restart: always
     adminer:
         image: dockette/adminer:full
+        container_name: sotbit_adminer
         links:
             - db:db
         ports:
@@ -70,7 +78,7 @@ services:
             - db:/var/lib/mysql
             - cache:/var/lib/memcached
             #- ./www/html:/var/www/html
-            - ${SITE_PATH}:/var/www/bitrix
+            - ./sites:/var/www/
             - /etc/localtime:/etc/localtime/:ro
         networks:
             - bitrix
