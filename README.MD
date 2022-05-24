@@ -20,6 +20,14 @@ echo "<?php phpinfo();" > ./sites/bitrix/index.php
 
 открыть в браузере http://localhost
 
+или: 
+
+wget https://www.1c-bitrix.ru/download/scripts/bitrixsetup.php
+
+и запускаем:
+
+http://localhost/bitrixsetup.php
+
 завершение работы:
 
 docker-compose down --volumes
