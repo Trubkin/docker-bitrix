@@ -1,8 +1,4 @@
 version: '2'
-volumes:
-    site:
-    db:
-        driver: local
 services:
     php:
         build: ./${PHP_VERSION}
@@ -44,6 +40,8 @@ services:
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
         command: mysqld --sql-mode=""
+        volumes:
+            - ./data:/var/lib/mysql 
         networks:
             - bitrix
         restart: always
@@ -70,6 +68,7 @@ services:
             - bitrix
     source:
         image: alpine:latest
+        container_name: sotbit_source
         volumes:
             - ./logs/${WEB_SERVER_TYPE}:/var/log/${WEB_SERVER_TYPE}
             - ./logs/php:/var/log/php
