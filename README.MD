@@ -11,3 +11,9 @@ cp .env_template .env
 запуск: 
 
 docker-compose up -d
+
+проверка работоспособности:
+
+echo "<?php phpinfo();" > ./sites/bitrix/index.php
+
+открыть в браузере http://localhost
