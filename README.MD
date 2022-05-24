@@ -19,3 +19,7 @@ docker-compose up -d
 echo "<?php phpinfo();" > ./sites/bitrix/index.php
 
 открыть в браузере http://localhost
+
+завершение работы:
+
+docker-compose down --volumes
