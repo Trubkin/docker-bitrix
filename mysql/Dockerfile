@@ -1,6 +1,7 @@
-FROM mysql:8.0
+FROM mysql:5.7
 
-COPY my.cnf /etc/mysql/conf.d/my.cnf
+ADD ./my.cnf /etc/mysql/conf.d/my.cnf
+RUN chmod go-w /etc/mysql/conf.d/my.cnf
 
 CMD ["mysqld"]
 

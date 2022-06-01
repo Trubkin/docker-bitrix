@@ -1,4 +1,4 @@
-FROM nginx:1.21
+FROM nginx:stable
 
 COPY conf/nginx.conf /etc/nginx/
 COPY conf/default.conf /etc/nginx/conf.d/

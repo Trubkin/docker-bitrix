@@ -1,18 +1,22 @@
 version: '2'
 services:
     php:
-        build: ./${PHP_VERSION}
+        build: ./php
         container_name: sotbit_php
         volumes_from:
             - source
         links:
             - db
-            - memcached
+        #   - memcached
         networks:
             - bitrix
+        ports:
+            - '${INTERFACE}:9000:9000'
         restart: always
+        environment:
+            - DOCUMENT_ROOT=${DOCUMENT_ROOT}
     web_server:
-        build: ./${WEB_SERVER_TYPE}
+        build: ./nginx
         container_name: sotbit_webserver
         depends_on:
             - source
@@ -27,7 +31,7 @@ services:
             - bitrix
         restart: always
     db:
-        build: ./${DB_SERVER_TYPE}
+        build: ./mysql/
         platform: linux/amd64
         container_name: sotbit_db
         volumes_from:
@@ -45,16 +49,16 @@ services:
         networks:
             - bitrix
         restart: always
-    memcached:
-        image: memcached:1.6.12-alpine
-        container_name: sotbit_memcached
-        volumes_from:
-            - source
-        ports:
-            - '${INTERFACE}:11211:11211'
-        networks:
-            - bitrix
-        restart: always
+    # memcached:
+    #     image: memcached:1.6.12-alpine
+    #     container_name: sotbit_memcached
+    #     volumes_from:
+    #         - source
+    #     ports:
+    #         - '${INTERFACE}:11211:11211'
+    #     networks:
+    #         - bitrix
+    #     restart: always
     adminer:
         image: dockette/adminer:full
         container_name: sotbit_adminer
@@ -70,7 +74,7 @@ services:
         image: alpine:latest
         container_name: sotbit_source
         volumes:
-            - ./logs/${WEB_SERVER_TYPE}:/var/log/${WEB_SERVER_TYPE}
+            - ./logs/nginx:/var/log/nginx
             - ./logs/php:/var/log/php
             - ./logs/db:/var/log/mysql
             - ./logs/memcached:/var/log/memcached
