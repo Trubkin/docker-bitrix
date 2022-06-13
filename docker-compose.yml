@@ -19,7 +19,7 @@ services:
         build: ./nginx
         container_name: sotbit_webserver
         depends_on:
-            - source
+            - php
         volumes_from:
             - source
         ports:
@@ -49,16 +49,16 @@ services:
         networks:
             - bitrix
         restart: always
-    # memcached:
-    #     image: memcached:1.6.12-alpine
-    #     container_name: sotbit_memcached
-    #     volumes_from:
-    #         - source
-    #     ports:
-    #         - '${INTERFACE}:11211:11211'
-    #     networks:
-    #         - bitrix
-    #     restart: always
+    memcached:
+        image: memcached:1.6.12-alpine
+        container_name: sotbit_memcached
+        volumes_from:
+            - source
+        ports:
+            - '${INTERFACE}:11211:11211'
+        networks:
+            - bitrix
+        restart: always
     adminer:
         image: dockette/adminer:full
         container_name: sotbit_adminer
